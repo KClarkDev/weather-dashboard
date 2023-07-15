@@ -3,15 +3,32 @@ const apiKey = "5aa42c93621e0e9d914b602b246b72b2"; // OpenWeather API Key
 // DOM elements
 const cityInput = document.querySelector("#search-input");
 const searchButton = document.querySelector("#search-btn");
+
+// local storage variable
 var cityNames = [];
 
+// from https://www.w3docs.com/snippets/javascript/how-to-convert-string-to-title-case-with-javascript.html
+function toTitleCase(str) {
+  return str
+    .toLowerCase()
+    .split(" ")
+    .map(function (word) {
+      return word.charAt(0).toUpperCase() + word.slice(1);
+    })
+    .join(" ");
+}
+
+//////// EVENT LISTENERS ////////
+
 searchButton.addEventListener("click", function () {
-  // When the search button is clicked, retrieve the text value and assign it to a variable
-  var city = cityInput.value;
+  // When the search button is clicked, retrieve the inputted text value and assign it to a variable
+  const city = toTitleCase(cityInput.value);
   console.log(`The city entered is ${city}`);
   cityNames.push({
     cityName: city,
   });
+  console.log(cityNames);
+  localStorage.setItem("cityNames", JSON.stringify(cityNames));
 });
 
 function initHistory() {
@@ -47,3 +64,5 @@ function searchCity() {
 // TODO: retrieve search input text and retrieve current and future weather data for that city
 
 // TODO: Add search term to localStorage and display on the page as a button that can be clicked to re-run that;
+
+initHistory();

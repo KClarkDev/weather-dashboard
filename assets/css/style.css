@@ -1,1 +1,7 @@
-background-image: var(--bs-gradient);.
+.custom-gradient {
+  background-image: linear-gradient(to right, #465ab8, #261360);
+}
+
+btn-dark {
+  background-color: #261360;
+}

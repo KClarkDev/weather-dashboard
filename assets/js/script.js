@@ -24,23 +24,38 @@ searchButton.addEventListener("click", function () {
   // When the search button is clicked, retrieve the inputted text value and assign it to a variable
   const city = toTitleCase(cityInput.value);
   console.log(`The city entered is ${city}`);
-  cityNames.push({
-    cityName: city,
-  });
+  // cityNames.push({
+  //   cityName: city,
+  // });
+  cityNames.push(city);
   console.log(cityNames);
   localStorage.setItem("cityNames", JSON.stringify(cityNames));
+  createBtn(city);
 });
+
+// This function will be called by the init function and the eventListener
+function createBtn(cityName) {
+  const newBtn = document.createElement("button");
+  newBtn.innerHTML = cityName;
+  document.body.appendChild(newBtn);
+}
 
 function initHistory() {
   // If available, retrieve previously queried city names from local storage
   if (localStorage.getItem("cityNames")) {
     cityNames = JSON.parse(localStorage.getItem("cityNames")); //converts from JSON back to an array
   }
+
+  // Create buttons in search history section based on values in local storage
+  for (i = 0; i < cityNames.length; i++) {
+    createBtn(cityNames[i].cityName);
+  }
 }
 
 function searchCity() {
   localStorage.setItem("cityNames", JSON.stringify(cityNames));
 }
+
 //   // api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}
 //   var queryURL =
 //     "http://api.openweathermap.org/data/2.5/weather?q=" +
